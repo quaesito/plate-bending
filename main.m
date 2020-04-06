@@ -1,6 +1,5 @@
-%% Pseudo-Lower Bound Solution for RC Slabs %%
 %--------------------------------------------------------------------------
-% Problem : Linear-Elastic Plate bending
+%% Problem : Linear-Elastic Plate bending
 %--------------------------------------------------------------------------
 % Michele De Filippo
 % Department of Civil Engineering

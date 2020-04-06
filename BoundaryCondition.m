@@ -13,6 +13,11 @@ function bcdof = BoundaryCondition(typeBC,coordinates)
 %           coordinates - geometric coordinates of nodes
 %           
 %--------------------------------------------------------------------------
+% Michele De Filippo
+% Department of Civil Engineering
+% The Hong Kong University of Science and Technology
+% Latest revision: Sep 2017
+%--------------------------------------------------------------------------
 
 L1 = find(coordinates(:,2) == min(coordinates(:,2))) ; % at y = 0 (along X-axes)
 L2 = find(coordinates(:,1) == max(coordinates(:,1))) ; % at x = a (along Y-axes)
