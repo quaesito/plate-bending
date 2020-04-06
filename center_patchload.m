@@ -1,0 +1,62 @@
+function [icenter_Load] = center_patchload(NodeCoor,load_nodes,icenter_Load,...
+    nelem_x)
+%% Check if patch load has a center node 
+    % [x y]
+    % 0/1 0/1
+    centpatchload = any(NodeCoor(:,:) == [round(mean(load_nodes(:,1)),3) ...
+            round(mean(load_nodes(:,2)),3)]);
+        
+    %% If there is a center load in x-direction
+    if centpatchload(1) == 1 && ... % it means there is center node in x-direction within patch laod
+            NodeCoor(icenter_Load,1) ~= round(mean(load_nodes(:,1)),3)
+        flag = 1; 
+        while flag ~= 0 % while the index of that node is not found
+        if NodeCoor(icenter_Load,1) > round(mean(load_nodes(:,1)),3)
+            % search backward
+            if NodeCoor(icenter_Load-flag,1) == round(...
+                    mean(load_nodes(:,1)),3)
+                icenter_Load = icenter_Load-flag; 
+                flag = 0; % node found
+            else
+                flag = flag + 1; % search next
+            end
+        elseif NodeCoor(icenter_Load,1) < round(mean(load_nodes(:,2)),3)
+            % search forward
+            if NodeCoor(icenter_Load+flag,1) == round(...
+                    mean(load_nodes(:,2)),3)
+                icenter_Load = icenter_Load+flag;
+                flag = 0; % node found
+            else
+                flag = flag + 1; % search next
+            end
+        end
+        end
+    end    
+    
+    %% If there is a center load in y-direction
+    if centpatchload(2) == 1 && ...% it means there is center node in y-direction within patch laod
+        NodeCoor(icenter_Load,2) ~= round(mean(load_nodes(:,2)),3)
+        flag = 1; 
+        while flag ~= 0 % while the index of that node is not found
+        if NodeCoor(icenter_Load,2) > round(mean(load_nodes(:,2)),3)
+            % search backward
+            if NodeCoor(icenter_Load-nelem_x*flag-1,2) == round(...
+                    mean(load_nodes(:,2)),3)
+                icenter_Load(1) = icenter_Load-nelem_x*flag-1; 
+                flag = 0; % node found
+            else
+                flag = flag + 1; % search next
+            end
+        elseif NodeCoor(icenter_Load,2) < round(mean(load_nodes(:,2)),3)
+            % search forward
+            if NodeCoor(icenter_Load+nelem_x*flag+1,2) == round(...
+                    mean(load_nodes(:,2)),3)
+                icenter_Load = icenter_Load+nelem_x*flag+1;
+                flag = 0; % node found
+            else
+                flag = flag + 1; % search next
+            end
+        end
+        end
+    end
+    end

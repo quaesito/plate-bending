@@ -1,0 +1,41 @@
+function [shape,dshapedxi,dshapedeta]=Shapefunctions(xi,eta)
+
+%------------------------------------------------------------------------
+%  Purpose:
+%     compute isoparametric four-node Quadilateral shape functions
+%     and their derivatves at the selected (integration) point
+%     in terms of the natural coordinate 
+%
+%  Synopsis:
+%     [shape,dshapedxi,dshapedeta]=shapefunctions(xi,eta)  
+%
+%  Variable Description:
+%     shape - shape functions for four-node element
+%     dshapedXI - derivatives of the shape functions w.r.t. xi
+%     dshapedeta - derivatives of the shape functions w.r.t. eta
+%     xi - r coordinate value of the selected point   
+%     eta - s coordinate value of the selected point
+%
+%  Notes:
+%     1st node at (-1,-1), 2nd node at (1,-1)
+%     3rd node at (1,1), 4th node at (-1,1)
+%------------------------------------------------------------------------
+
+% shape functions
+
+ shape(1)=0.25*(1-xi)*(1-eta);
+ shape(2)=0.25*(1+xi)*(1-eta);
+ shape(3)=0.25*(1+xi)*(1+eta);
+ shape(4)=0.25*(1-xi)*(1+eta);
+
+% derivatives
+
+dshapedxi(1)=-0.25*(1-eta);
+ dshapedxi(2)=0.25*(1-eta);
+ dshapedxi(3)=0.25*(1+eta);
+ dshapedxi(4)=-0.25*(1+eta);
+
+ dshapedeta(1)=-0.25*(1-xi);
+ dshapedeta(2)=-0.25*(1+xi);
+ dshapedeta(3)=0.25*(1+xi);
+ dshapedeta(4)=0.25*(1-xi);
