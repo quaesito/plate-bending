@@ -31,8 +31,8 @@ t = 0.1 ;                         % Plate thickness [m]
 I = t^3/12 ;                      % Moment of Inertia [m^4]
 
 %% Number of mesh element in x and y direction %%
-nelem_x = 30;
-nelem_y = 30;
+nelem_x = 20;
+nelem_y = 20;
 disp(['Selected mesh is: ' num2str(nelem_x)...
     ' by ' num2str(nelem_y)]) ;
 
@@ -68,6 +68,7 @@ ElemDraw2D(ElemX,ElemY,'-',0,1:nelem,nodes,2)
 
 %% Input Cross-section and Material data %%
 fcu = 30;        % Concrete compressive strength [MPa] 
+fyd = 450;       % Steel yield strength [MPa]  
 B = b/nelem_x;   % Slab width [m]
 H = 180;         % Slab height [mm]
 C = 30;          % Distance of rebars from bottom/top of the slab [mm]
@@ -75,7 +76,7 @@ C = 30;          % Distance of rebars from bottom/top of the slab [mm]
 reb_lay_elem = zeros(nelem_x*nelem_y,1);
 
 %% Define amount of additive rebar layers %%
-reb_lay_am = 0; 
+reb_lay_am = 1; 
 disp(['Amount of additive rebar layers: ' num2str(reb_lay_am)]);
 
 % Layers overwrite one on the top of the other. Take that into account
@@ -130,7 +131,7 @@ sp_ny1 = 1/ny1;   % Spacing of rebars on the upper edge [mm]
 
 % Define Rebar Layer Area according to inserted coordinates of nodes
 % (COUNTERCLOCKWISE!)
-reb1nodes = [1 1; 5 1; 5 5; 1 5];
+reb1nodes = [0.2 0.2; 0.4 0.2; 0.4 0.4; 0.2 0.4];
 [reb_lay_elem] = lay_area(reb1nodes,... % Coordinates of rebar nodes [m]
     ElemNode,reb_lay_elem,NodeCoor,nelem_x,nelem_y,1,'blue'); 
 legend('Master Rebar Layer 0','Rebar Layer 1');
@@ -186,7 +187,7 @@ disp(['Maximum Resisting Hogging Moment: ' num2str(Mnpy0) ' kNm']) ;
 
 if reb_lay_am >= 1
     % Rebar Layer 1
-    [Mppx1,Mnpx1] = PlasticMoments(fcu,B,H,C,phisx1,nsx1,phix1,nx1); 
+    [Mppx1,Mnpx1] = PlasticMoments(fcu,fyd,B,H,C,phisx1,nsx1,phix1,nx1); 
     % Sagging Moments positive - Hogging Moments Negative
     disp('Computing Maximum Resisting Moments for rebar layer 1:')
     disp('along x-direction:')
@@ -195,7 +196,7 @@ if reb_lay_am >= 1
     disp(['Maximum Resisting Sagging Moment: ' num2str(Mppx1) ' kNm']) ;
     disp(['Maximum Resisting Hogging Moment: ' num2str(Mnpx1) ' kNm']) ;
 
-    [Mppy1,Mnpy1] = PlasticMoments(fcu,B,H,C,phisy1,nsy1,phiy1,ny1); 
+    [Mppy1,Mnpy1] = PlasticMoments(fcu,fyd,B,H,C,phisy1,nsy1,phiy1,ny1); 
     disp('along y-direction:')
     disp(['Bottom Rebars: phi' num2str(phisy1) ' @ ' num2str(sp_nsy1*1000) ' mm']);
     disp(['Top Rebars: phi' num2str(phiy1) ' @ ' num2str(sp_ny1*1000) ' mm']);
@@ -205,7 +206,7 @@ end
 
 if reb_lay_am >= 2
     % Rebar Layer 2
-    [Mppx2,Mnpx2] = PlasticMoments(fcu,B,H,C,phisx2,nsx2,phix2,nx2); 
+    [Mppx2,Mnpx2] = PlasticMoments(fcu,fyd,B,H,C,phisx2,nsx2,phix2,nx2); 
     % Sagging Moments positive - Hogging Moments Negative
     disp('Computing Maximum Resisting Moments for rebar layer 2:')
     disp('along x-direction:')
@@ -214,7 +215,7 @@ if reb_lay_am >= 2
     disp(['Maximum Resisting Sagging Moment: ' num2str(Mppx2) ' kNm']) ;
     disp(['Maximum Resisting Hogging Moment: ' num2str(Mnpx2) ' kNm']) ;
 
-    [Mppy2,Mnpy2] = PlasticMoments(fcu,B,H,C,phisy2,nsy2,phiy2,ny2); 
+    [Mppy2,Mnpy2] = PlasticMoments(fcu,fyd,B,H,C,phisy2,nsy2,phiy2,ny2); 
     disp('along y-direction:')
     disp(['Bottom Rebars: phi' num2str(phisy2) ' @ ' num2str(sp_nsy2*1000) ' mm']);
     disp(['Top Rebars: phi' num2str(phiy2) ' @ ' num2str(sp_ny2*1000) ' mm']);
@@ -318,8 +319,8 @@ if bc == 2
     coor1_x1 = 0; % Define x-coordinate of internal BC
     coor1_y1 = 0; % Define y-coordinate of internal BC
     % Top right vertex
-    coor1_x2 = 0.033; % Define x-coordinate of internal BC
-    coor1_y2 = 0.033; % Define y-coordinate of internal BC
+    coor1_x2 = 0.1; % Define x-coordinate of internal BC
+    coor1_y2 = 0.1; % Define y-coordinate of internal BC
     
 intbcdof1 = IntBoundaryCondition(typeintBC1,NodeCoor,dir1,...
     coor1_x1,coor1_y1,coor1_x2,coor1_y2,nelem_x,'b') ;
@@ -340,9 +341,9 @@ intbcdof1 = IntBoundaryCondition(typeintBC1,NodeCoor,dir1,...
     % Bottom left vertex
     % ROUNDED TO THREE SIGNIFICANT DIGITS!
     coor2_x1 = 0; % Define x-coordinate of internal BC
-    coor2_y1 = 0.967; % Define y-coordinate of internal BC
+    coor2_y1 = 0.9; % Define y-coordinate of internal BC
     % Top right vertex
-    coor2_x2 = 0.033; % Define x-coordinate of internal BC
+    coor2_x2 = 0.1; % Define x-coordinate of internal BC
     coor2_y2 = 1; % Define y-coordinate of internal BC
     
 intbcdof2 = IntBoundaryCondition(typeintBC2,NodeCoor,dir2,...
@@ -403,7 +404,7 @@ elseif loadType == 1 % one patch load applied on specified area
     % The concept of lay_area is now recycled for determining modelling
     % patch loads
     % INSERT COORDINATES ROUNDED WITH 3 SIGNIFICANT FIGURES
-    load1nodes = [0.467 0.467; 0.533 0.467; 0.533 0.533; 0.467 0.533];
+    load1nodes = [0.4 0.4; 0.5 0.4; 0.5 0.5; 0.4 0.5];
     [load_elem] = lay_area(load1nodes,... % Coordinates of load nodes [m]
         ElemNode,load_elem,NodeCoor,nelem_x,nelem_y,1,'black');
 legend('Slab','Patch Load');
