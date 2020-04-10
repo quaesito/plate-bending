@@ -1,4 +1,4 @@
-# Bending of multilayer thin/thick plate under composite transverse pressures modeled using Finite Element Method
+# Bending of multi cross-section thin/thick plate under composite transverse pressures and boundary conditions modeled using Finite Element Method
 
 A multi-cross section thin plate under composite transverse pressure is considered with line/area boundary conditions. 
 
@@ -220,4 +220,4 @@ Specify the load location of load 1 at load1nodes, of load 2 at load2nodes etc.
 ```
 
 # How to cite this work?
-> M. De Filippo 'Bending of thin/thick plate under composite transverse pressures modeled using Finite Element Method', DOI: 10.13140/RG.2.2.35724.46726, Dec 2018.
+> M. De Filippo 'Bending of multi cross-section thin/thick plate under composite transverse pressures and boundary conditions modeled using Finite Element Method', DOI: 10.13140/RG.2.2.35724.46726, Dec 2018.
