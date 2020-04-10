@@ -1,6 +1,10 @@
 %--------------------------------------------------------------------------
 %% Problem : Linear-Elastic Plate bending
 %--------------------------------------------------------------------------
+% Problem : Find the maximum load a RC slab can carry, and its eventual
+% yield-line patterns
+% Two Boundary conditions are used, simply supported and clamped.
+%--------------------------------------------------------------------------
 % Michele De Filippo
 % Department of Civil Engineering
 % The Hong Kong University of Science and Technology
