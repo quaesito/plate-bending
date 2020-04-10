@@ -218,3 +218,6 @@ Specify the load location of load 1 at load1nodes, of load 2 at load2nodes etc.
 ```matlab
 %% ----------------- START ANALYSIS------------------------------------%%
 ```
+
+# How to cite this work?
+> M. De Filippo 'Bending of thin/thick plate under composite transverse pressures modeled using Finite Element Method', DOI: 10.13140/RG.2.2.35724.46726, Dec 2018.
