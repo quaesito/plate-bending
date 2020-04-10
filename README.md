@@ -5,7 +5,7 @@ A multi-cross section thin plate under composite transverse pressure is consider
 In main.m:
 	
 ## 1) Input Data
-```bash
+```matlab
 % Geometrical and material properties of plate
 a = 1;                           % Length of the plate (along X-axes) [m]
 b = 1;                           % Length of the plate (along Y-axes) [m]
