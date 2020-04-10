@@ -5,7 +5,7 @@ A multi-cross section thin plate under composite transverse pressure is consider
 In main.m:
 	
 ## 1) Input Data
-'''matlab
+'''bash
 % Geometrical and material properties of plate
 a = 1;                           % Length of the plate (along X-axes) [m]
 b = 1;                           % Length of the plate (along Y-axes) [m]
@@ -16,13 +16,13 @@ I = t^3/12 ;                      % Moment of Inertia [m^4]
 '''
 
 ## 2) Number of mesh element in x and y direction
-'''matlab
+'''bash
 nelem_x = 30;
 nelem_y = 30;
 '''
 
 ## 3) Input Cross-section and Material data 
-'''matlab
+'''bash
 fcu = 30;        % Concrete compressive strength [MPa] 
 B = b/nelem_x;   % Slab width [m]
 H = 180;         % Slab height [mm]
@@ -32,12 +32,12 @@ C = 30;          % Distance of rebars from bottom/top of the slab [mm]
 ## 4) Define amount of additive rebar layers
 % In sec 3, the master layer of the plate has been defined. Now, here specify whether you want any area of the plate to have a different cross-section than the master one. In such case, the new cross-section will overwrite the existing one/ones in the area where it was specified.
 
-'''matlab
+'''bash
 reb_lay_am = 2; 
 '''
 
 ## 5) Define master layer [0] 
-'''matlab
+'''bash
 % Longitudinal Bars along x-direction
 phisx0 = 8;           % Rebars diameter on the lower edge [mm]
 phix0 = 8;            % Rebars diameter on the upper edge [mm]
@@ -55,7 +55,7 @@ sp_ny0 = 1/ny0;       % Spacing of rebars on the upper edge [mm]
 '''
 
 ## 6) Define Rebar Layer [1]
-'''matlab
+'''bash
 % Longitudinal Bars along x-direction
 phisx1 = 8;     % Rebars diameter on the lower edge [mm]
 phix1 = 8;      % Rebars diameter on the upper edge [mm]
@@ -77,7 +77,7 @@ reb1nodes = [1 1; 5 1; 5 5; 1 5];
 '''
 
 ## 7) Define Rebar Layer [2]
-'''matlab
+'''bash
 % Longitudinal Bars along x-direction
 phisx1 = 8;     % Rebars diameter on the lower edge [mm]
 phix1 = 8;      % Rebars diameter on the upper edge [mm]
@@ -99,13 +99,13 @@ reb1nodes = [1 1; 5 1; 5 5; 1 5];
 '''
 
 ## 8) Choose Order of Nielsen Criterion
-'''matlab
+'''bash
  YieldCriterionOrder = 1;         % Linearized Yield Criterion
 % YieldCriterionOrder = 2;          % Quadratic Yield Criterion
 '''
 
 ## 9) Define type of BCs 
-'''matlab
+'''bash
 %bc = 0; % Only external BCs
 % bc = 1; % External + 1 internal BCs
  bc = 2; % External + 2 internal BCs
@@ -123,14 +123,13 @@ reb1nodes = [1 1; 5 1; 5 5; 1 5];
 
 
 ## 10) Internal Boundary conditions 1 
-'''matlab
+'''bash
 if bc == 1
 %   typeintBC = 's-s-s-s' ;        % Simply Supported
 %   typeintBC = 'c-c-c-c'   ;      % Fully Clamped
 %   typeintBC = 'points';          % Point support
-  typeintBC = 'patchs, s-s-s-s'; % Patch support
+  typeintBC = 'patchs, s-s-s-s';  % Patch support
 %   typeintBC = 'patchs, c-c-c-c'; % Patch clamp
-
     
     %dir = 'x'; % BC along x-direction
     %dir = 'y'; % BC along y-direction
@@ -145,7 +144,7 @@ if bc == 1
 
 
 ## 11) Internal Boundary conditions 2 %%
-'''matlab
+'''bash
 if bc == 2
 % 1st Internal Boundary condition
 %   typeintBC1 = 's-s-s-s' ;        % Simply Supported
@@ -154,7 +153,6 @@ if bc == 2
    typeintBC1 = 'patchs, s-s-s-s';  % Patch support
 %   typeintBC1 = 'patchs, c-c-c-c'; % Patch clamp
 
-    
     %dir1 = 'x'; % BC along x-direction
     %dir1 = 'y'; % BC along y-direction
     %dir1 = 'point'; % BC in one point support
@@ -177,7 +175,6 @@ intbcdof1 = IntBoundaryCondition(typeintBC1,NodeCoor,dir1,...
 %   typeintBC2 = 'points';          % Point support
     typeintBC2 = 'patchs, s-s-s-s'; % Patch support
 %    typeintBC2 = 'patchs, c-c-c-c'; % Patch clamp
-
     
     %dir2 = 'x'; % BC along x-direction
     %dir2 = 'y'; % BC along y-direction
@@ -201,7 +198,7 @@ intbcdof = sort(intbcdof);
 '''
 
 ## 12) Define Load Steps and Intensity of Load
-'''matlab
+'''bash
 MaxLoadSteps = 2;                                                      % Define Maximum Amount of Load Steps    
 UnitP = -1 ;                                                           % Define Unit Load [kN/m^2]
 Pmax = 1300;                                                           % Define Maximum Load [kN/m^2]
@@ -211,7 +208,7 @@ lambda(1) = [];
 '''
 
 ## 13) Define load type
-'''matlab
+'''bash
 %loadType = 0; % Uniform transverse pressure
 loadType = 1; % One patch load applied
 %loadType = 2; % Two patch loads applied
@@ -221,6 +218,6 @@ loadType = 1; % One patch load applied
 
 Specify the load location of load 1 at load1nodes, of load 2 at load2nodes etc.
 
-'''matlab
+'''bash
 %% ----------------- START ANALYSIS------------------------------------%%
 '''
